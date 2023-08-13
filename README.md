@@ -2,4 +2,4 @@
 Este es un repositorio para generar una imagen con la IA (Inteligencia Artificial) basandose en la descripcion en texto que le des, recomiendo pasarle la descripcion en ingles
 
 
-<video src="video.mp4"> </video>
+<img src="video.mp4" alt="Followers">
