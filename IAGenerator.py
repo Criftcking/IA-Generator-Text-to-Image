@@ -6,6 +6,7 @@ import colorama
 from colorama import Fore, Style
 import os
 import time
+import json
 
 
 urlredirect = 'https://perchance.org/sexy-ai-art-generator'
@@ -35,10 +36,22 @@ def limpiar_terminal():
             os.system('cls')
         else:  # Linux/Unix/Mac
             os.system('clear')
+            
+            
+urlKey = "https://image-generation.perchance.org/api/verifyUser?thread=2&__cacheBust=0.1577499834121252"
+getkey = requests.get(url=urlKey).text
+data = json.loads(getkey)
+user_key = data['userKey']
 
 
 def buscar():
-    url1 = 'https://image-generation.perchance.org/checkVerificationStatus?userKey=ceca87ff9e4863d51b4ddc97305a0d17595a20d322f0bc00ccbde0022aaed402&__cacheBust=0.12611136192562977'
+    urlKey = "https://image-generation.perchance.org/api/verifyUser?thread=2&__cacheBust=0.1577499834121252"
+    getkey = requests.get(url=urlKey).text
+    data = json.loads(getkey)
+    user_key = data['userKey']
+    print(user_key)
+    
+    url1 = f'https://image-generation.perchance.org/checkVerificationStatus?userKey={user_key}&__cacheBust=0.12611136192562977'
     
     headers = {
   "Host": "image-generation.perchance.org",
@@ -63,7 +76,7 @@ def buscar():
     #pido al usuario un valor y lo almaceno en una variable
     dato = input('Que imagen quieres generar? (describela en texto): ')
     #defino la url y reemplazo 
-    url = f'https://image-generation.perchance.org/textToImage?prompt={dato}&seed=-1&resolution=512x768&guidanceScale=7&negativePrompt=, low-quality, deformed, text, poorly drawn, ugly, amputee, deformed&channel=sexy-ai-art-generator&userKey=ceca87ff9e4863d51b4ddc97305a0d17595a20d322f0bc00ccbde0022aaed402&requestId=0.5786562356902364'
+    url = f'https://image-generation.perchance.org/textToImage?prompt={dato}&seed=-1&resolution=512x768&guidanceScale=7&negativePrompt=, low-quality, deformed, text, poorly drawn, ugly, amputee, deformed&channel=sexy-ai-art-generator&userKey={user_key}&requestId=0.5786562356902364'
     #realizo una peticion get a la url
     req = requests.get(url=url)
 
@@ -160,3 +173,4 @@ def menu():
         print('Opcion incorrecta o No existe')
 
 menu()
+1
