@@ -79,45 +79,38 @@ def buscar():
     url = f'https://image-generation.perchance.org/textToImage?prompt={dato}&seed=-1&resolution=512x768&guidanceScale=7&negativePrompt=, low-quality, deformed, text, poorly drawn, ugly, amputee, deformed&channel=sexy-ai-art-generator&userKey={user_key}&requestId=0.5786562356902364'
     #realizo una peticion get a la url
     req = requests.get(url=url)
-
-
-    #almaceno la respuesta en una variable en formato de texto
     texto = req.text
-   
-
-    #creo un buscador para sacar lo que quiero desde donde empieza a donde termina de la cadena de texto
-    inicio = texto.find('data:image/jpeg;base64,') + 1
-    fin = texto.find('"],', inicio)
-    valor = texto[inicio:fin]
-    valore = valor[22:]
+    print(texto)
     
+    data = json.loads(texto)
+    Image_key = data['imageId']
+    
+    urlimage = f"https://image-generation.perchance.org/api/downloadTemporaryImage?imageId={Image_key}"
+    print(urlimage)
+    
+    headd = {
+  "Host": "image-generation.perchance.org",
+  "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:123.0) Gecko/20100101 Firefox/123.0",
+  "Accept": "*/*",
+  "Accept-Language": "en-US,en;q=0.5",
+  "Referer": "https://image-generation.perchance.org/embed",
+  "Connection": "keep-alive",
+  "Sec-Fetch-Dest": "empty",
+  "Sec-Fetch-Mode": "cors",
+  "Sec-Fetch-Site": "same-origin"
+}
 
-
-    #guardo el resultado en un txt
-    texto_a_guardar = valore
-    with open("base64.txt", "w") as archivo:
-        archivo.write(texto_a_guardar)
+    imagegen = requests.get(url=urlimage,headers=headd)
+    if imagegen.status_code == 200:
+        image_data = imagegen.content
+        with open("result.jpg", "wb") as f:
+            f.write(image_data)
+    
+    
 
 
 def verimagen():
     try:
-        # Leer la cadena base64 desde el archivo
-        with open("base64.txt", "r") as file:
-            base64_image = file.read().strip()
-
-        # Decodificar la cadena base64 en bytes
-        image_data = base64.b64decode(base64_image)
-
-        # Crear un objeto de tipo BytesIO para simular un archivo en memoria
-        image_stream = BytesIO(image_data)
-
-        # Abrir la imagen usando la biblioteca PIL (Python Imaging Library)
-        image = Image.open(image_stream)
-        
-
-        # Mostrar la imagen
-        #image.show()
-        image.save('result.jpg')
         abrir = Image.open('result.jpg')
         abrir.show()
         menu()
@@ -125,7 +118,6 @@ def verimagen():
     except Exception as e:
         print("Hubo un error al decodificar o mostrar la imagen:", e)
         
-
 
 
 
@@ -173,4 +165,3 @@ def menu():
         print('Opcion incorrecta o No existe')
 
 menu()
-1
