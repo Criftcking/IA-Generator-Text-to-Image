@@ -75,8 +75,9 @@ def buscar():
 
     #pido al usuario un valor y lo almaceno en una variable
     dato = input('Que imagen quieres generar? (describela en texto): ')
+    prompt = ""
     #defino la url y reemplazo 
-    url = f'https://image-generation.perchance.org/textToImage?prompt={dato}&seed=-1&resolution=512x768&guidanceScale=7&negativePrompt=, low-quality, deformed, text, poorly drawn, ugly, amputee, deformed&channel=sexy-ai-art-generator&userKey={user_key}&requestId=0.5786562356902364'
+    url = f'https://image-generation.perchance.org/textToImage?prompt={dato}&seed=-1&resolution=512x768&guidanceScale=7&negativePrompt={prompt}&channel=sexy-ai-art-generator&userKey={user_key}&requestId=0.5786562356902364'
     #realizo una peticion get a la url
     req = requests.get(url=url)
     texto = req.text
@@ -105,7 +106,6 @@ def buscar():
         image_data = imagegen.content
         with open("result.jpg", "wb") as f:
             f.write(image_data)
-    
     
 
 
