@@ -35,37 +35,21 @@ def limpiar_terminal():
         else:  # Linux/Unix/Mac
             os.system('clear')
             
-            
-#######################################################################################
-import random
-
-# Crear 5 variables con nombres dinámicos y números aleatorios del 0 al 9
-for i in range(10):
-    nombre_variable = "val" + str(i)  # Nombre de la variable
-    valor_variable = random.randint(0, 9)  # Número aleatorio entre 0 y 9
-    globals()[nombre_variable] = valor_variable  # Crear la variable global
-# Imprimir las variables
-for i in range(10):
-    nombre_variable = "val" + str(i)  # Nombre de la variable
-    #print(f"{nombre_variable}: {globals()[nombre_variable]}")
-
-#es normal que se muestre un error aqui por la globalicacion
-#############################################################################################
-            
-urlKey = f"https://image-generation.perchance.org/api/verifyUser?thread=2&__cacheBust=0.1{val0}{val1}{val2}{val3}{val4}9834121252"
+                      
+urlKey = f"https://image-generation.perchance.org/api/verifyUser?thread=2&__cacheBust=0.1447499334121352"
 getkey = requests.get(url=urlKey).text
 data = json.loads(getkey)
 user_key = data['userKey']
 
 
 def buscar():
-    urlKey = "https://image-generation.perchance.org/api/verifyUser?thread=2&__cacheBust=0.1{val0}{val1}{val2}{val3}{val4}9834121252"
+    urlKey = f"https://image-generation.perchance.org/api/verifyUser?thread=2&__cacheBust=0.1447499334121352"
     getkey = requests.get(url=urlKey).text
     data = json.loads(getkey)
     user_key = data['userKey']
     print(user_key)
     
-    url1 = f'https://image-generation.perchance.org/checkVerificationStatus?userKey={user_key}&__cacheBust=0.1{val0}{val1}{val2}{val3}{val4}9834121252'
+    url1 = f'https://image-generation.perchance.org/checkVerificationStatus?userKey={user_key}&__cacheBust=0.1447499334121352'
     
     headers = {
   "Host": "image-generation.perchance.org",
@@ -89,9 +73,10 @@ def buscar():
 
     #pido al usuario un valor y lo almaceno en una variable
     dato = input('Que imagen quieres generar? (describela en texto): ')
-    prompt = ""
+    prompt = "anime, hentai, kawai, costplay, otaku"
+    resolution = "1920x730" #"512x768"
     #defino la url y reemplazo 
-    url = f'https://image-generation.perchance.org/textToImage?prompt={dato}&seed=-1&resolution=512x768&guidanceScale=7&negativePrompt={prompt}&channel=sexy-ai-art-generator&userKey={user_key}&requestId=0.5786562356902364'
+    url = f'https://image-generation.perchance.org/textToImage?prompt={dato}&seed=-1&resolution={resolution}&guidanceScale=7&negativePrompt={prompt}&channel=sexy-ai-art-generator&userKey={user_key}&requestId=0.5786562356902364'
     #realizo una peticion get a la url
     req = requests.get(url=url)
     texto = req.text
