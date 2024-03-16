@@ -39,7 +39,6 @@ while time.time() - tiempo_inicial < tiempo_de_espera:
 from win10toast import ToastNotifier
 toaster = ToastNotifier()
 toaster.show_toast("Mensaje", "API restored successfully.")
-toaster.show_toast("Mensaje", "API restablecida Correctamente.")
 
 # Cerrar el navegador después de esperar el tiempo especificado
 driver.quit()
