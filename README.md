@@ -6,7 +6,8 @@ Este es un repositorio para generar una imagen con la IA (Inteligencia Artificia
 
 
 <h2>Requeriments:
-pip install pillow requests colorama
+pip install -r requirements.txt
+
 
 </h2>
 
