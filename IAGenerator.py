@@ -147,7 +147,7 @@ def menu():
     elif respuesta == 2:
         pass
     elif respuesta == 3:
-        print('En la web debes de generar una imagen manual para desbloquear el bot')
+        print('El prosceso se completara automaticamente')
         input('preciona enter para ir a la web: ')
         print('Redirigiendo a https://perchance.org/sexy-ai-art-generator')
         time.sleep(3)
