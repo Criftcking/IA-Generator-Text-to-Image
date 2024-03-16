@@ -8,7 +8,7 @@ import os
 import time
 import json
 import random
-
+import importlib
 
 urlredirect = 'https://perchance.org/sexy-ai-art-generator'
 
@@ -36,12 +36,6 @@ def limpiar_terminal():
             os.system('clear')
             
                       
-urlKey = f"https://image-generation.perchance.org/api/verifyUser?thread=2&__cacheBust=0.1447499334121352"
-getkey = requests.get(url=urlKey).text
-data = json.loads(getkey)
-user_key = data['userKey']
-
-
 def buscar():
     urlKey = f"https://image-generation.perchance.org/api/verifyUser?thread=2&__cacheBust=0.1447499334121352"
     getkey = requests.get(url=urlKey).text
@@ -67,14 +61,14 @@ def buscar():
   "Sec-Fetch-User": "?1"
 }
 
-    
+
     urlacess = requests.get(url=url1)
     print(urlacess.text)
 
     #pido al usuario un valor y lo almaceno en una variable
     dato = input('Que imagen quieres generar? (describela en texto): ')
     prompt = "anime, hentai, kawai, costplay, otaku"
-    resolution = "1920x730" #"512x768"
+    resolution = "512x768"
     #defino la url y reemplazo 
     url = f'https://image-generation.perchance.org/textToImage?prompt={dato}&seed=-1&resolution={resolution}&guidanceScale=7&negativePrompt={prompt}&channel=sexy-ai-art-generator&userKey={user_key}&requestId=0.5786562356902364'
     #realizo una peticion get a la url
@@ -157,10 +151,9 @@ def menu():
         input('preciona enter para ir a la web: ')
         print('Redirigiendo a https://perchance.org/sexy-ai-art-generator')
         time.sleep(3)
-        abrir_url(urlredirect)
-        
+        importlib.import_module('resetAPI')
+        menu()
     else:
         print('Opcion incorrecta o No existe')
-
 
 menu()
